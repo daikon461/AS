@@ -1,5 +1,6 @@
 package jp.oishi.armorsets;
 
+import net.minecraft.core.Holder;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
@@ -188,10 +189,10 @@ public final class SetBonuses {
             rm.forEach(m -> ai.removeModifier(m.id()));
         }
     }
-    private static void add(Player p, Attribute attr,String path,double amount){ addInst(p.getAttribute(attr),path,amount,AttributeModifier.Operation.ADD_MULTIPLIED_BASE); }
-    private static void addValue(Player p, Attribute attr,String path,double amount){ addInst(p.getAttribute(attr),path,amount,AttributeModifier.Operation.ADD_VALUE); }
+    private static void add(Player p, Holder<Attribute> attr,String path,double amount){ addInst(p.getAttribute(attr),path,amount,AttributeModifier.Operation.ADD_MULTIPLIED_BASE); }
+    private static void addValue(Player p, Holder<Attribute> attr,String path,double amount){ addInst(p.getAttribute(attr),path,amount,AttributeModifier.Operation.ADD_VALUE); }
     private static void addRL(Player p,String attrId,String path,double amount){
-        Attribute attr=BuiltInRegistries.ATTRIBUTE.get(ResourceLocation.parse(attrId)); if(attr!=null) addInst(p.getAttribute(attr),path,amount,AttributeModifier.Operation.ADD_MULTIPLIED_BASE);
+        Holder<Attribute> attr = BuiltInRegistries.ATTRIBUTE.getHolder(ResourceLocation.parse(attrId)).orElse(null); if(attr!=null) addInst(p.getAttribute(attr),path,amount,AttributeModifier.Operation.ADD_MULTIPLIED_BASE);
     }
     private static void addInst(AttributeInstance ai,String path,double amount,AttributeModifier.Operation op) {
         if(ai==null)return; ResourceLocation id=ResourceLocation.fromNamespaceAndPath(ArmorSetsMod.MODID, sanitize("set/"+path)); ai.addTransientModifier(new AttributeModifier(id,amount,op));
