@@ -232,7 +232,7 @@ public final class CombatAbilities {
         p.displayClientMessage(Component.literal("◆ " + name + " 発動"), true);
         if (p.level() instanceof ServerLevel level) {
             level.sendParticles(particle, p.getX(), p.getY() + 1.0, p.getZ(), 24, 0.45, 0.7, 0.45, 0.04);
-            level.playSound(null, p.blockPosition(), sound, SoundSource.PLAYERS, 0.8f, 1.0f);
+            level.playSound(null, p.blockPosition(), sound, SoundSource.PLAYERS, 0.28f, 1.0f);
         }
     }
 
